@@ -1,5 +1,6 @@
 package com.example.DB1Crud;
 
+import com.example.DB1Crud.infrastructure.repository.jpa.PersonaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

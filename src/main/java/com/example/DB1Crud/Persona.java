@@ -1,6 +1,6 @@
 package com.example.DB1Crud;
 
-import com.example.DB1Crud.dto.PersonaInputDTO;
+import com.example.DB1Crud.infrastructure.controller.dto.input.PersonaInputDTO;
 import lombok.Data;
 import lombok.NonNull;
 

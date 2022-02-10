@@ -1,4 +1,4 @@
-package com.example.DB1Crud.dto;
+package com.example.DB1Crud.infrastructure.controller.dto.input;
 
 import com.example.DB1Crud.Persona;
 import lombok.Data;

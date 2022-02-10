@@ -1,6 +1,8 @@
-package com.example.DB1Crud;
+package com.example.DB1Crud.infrastructure.controller;
 
-import com.example.DB1Crud.dto.PersonaOutputDTO;
+import com.example.DB1Crud.Persona;
+import com.example.DB1Crud.Servicio;
+import com.example.DB1Crud.infrastructure.controller.dto.output.PersonaOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
