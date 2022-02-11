@@ -1,6 +1,7 @@
 package com.example.DB1Crud;
 
 import com.example.DB1Crud.infrastructure.controller.dto.input.PersonaInputDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NonNull;
 
