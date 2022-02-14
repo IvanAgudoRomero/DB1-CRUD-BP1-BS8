@@ -88,7 +88,7 @@ public class Servicio {
     }
 
     public void updatePersona(int id_persona, Persona p) throws Exception {
-        addPersona(p);
-        delete(id_persona);
+        addPersona(p);        //Primerso se añade y despues se borra porque en el metodo de añadir persona
+        delete(id_persona);   //se comprueba que exista para evitar que se borren los datos al pasar una persona nula
     }
 }
