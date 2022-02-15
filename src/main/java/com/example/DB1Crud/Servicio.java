@@ -71,7 +71,8 @@ public class Servicio {
     }
 
     public ArrayList mostrarTodo(){
-        ArrayList usuarios = (ArrayList) personaRepo.findAll();
+        ArrayList usuarios = new ArrayList(personaRepo.findAll());
+        //ArrayList usuarios = (ArrayList) personaRepo.findAll();
         if(usuarios.isEmpty()){
             throw new NotFoundException("No hay usuarios");
         }
