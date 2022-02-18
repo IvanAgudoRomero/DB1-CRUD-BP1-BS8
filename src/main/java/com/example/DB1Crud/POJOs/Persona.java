@@ -1,7 +1,6 @@
-package com.example.DB1Crud;
+package com.example.DB1Crud.POJOs;
 
-import com.example.DB1Crud.infrastructure.controller.dto.input.PersonaInputDTO;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.example.DB1Crud.DTOs.input.PersonaInputDTO;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -19,47 +18,47 @@ public class Persona {
 
     @NonNull
     @Column(name = "usuario")
-    String usuario;
+    public String usuario;
 
     @NonNull
     @Column(name = "password")
-    String password;
+    public String password;
 
     @NonNull
     @Column(name = "name")
-    String name;
+    public String name;
 
     @NonNull
     @Column(name = "surname")
-    String surname;
+    public String surname;
 
     @NonNull
     @Column(name = "company_email")
-    String company_email;
+    public String company_email;
 
     @NonNull
     @Column(name = "personal_email")
-    String personal_email;
+    public String personal_email;
 
     @NonNull
     @Column(name = "city")
-    String city;
+    public String city;
 
     @NonNull
     @Column(name = "active")
-    boolean active;
+    public boolean active;
 
     @NonNull
     @Column(name = "created_date")
-    Date created_date;
+    public Date created_date;
 
     @NonNull
     @Column(name = "imagen_url")
-    String imagen_url;
+    public String imagen_url;
 
     @NonNull
     @Column(name = "termination_date")
-    Date termination_date;
+    public Date termination_date;
 
     public Persona(PersonaInputDTO personaDTO) {
         setId_persona(personaDTO.getId_persona());

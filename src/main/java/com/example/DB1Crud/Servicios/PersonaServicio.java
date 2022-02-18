@@ -1,30 +1,35 @@
-package com.example.DB1Crud;
+package com.example.DB1Crud.Servicios;
 
-import com.example.DB1Crud.infrastructure.repository.jpa.PersonaRepositorio;
+import com.example.DB1Crud.Excepciones.NotFoundException;
+import com.example.DB1Crud.POJOs.Persona;
+import com.example.DB1Crud.Repositorios.PersonaRepositorio;
+import com.example.DB1Crud.Excepciones.UnprocessableEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class Servicio {
+public class PersonaServicio {
     @Autowired
-    PersonaRepositorio personaRepo;
+    public PersonaRepositorio personaRepo;
 
-    public ArrayList buscarId(int id_persona){
+    public Optional<Persona> buscarId(int id_persona){
         ArrayList usuarios = new ArrayList();
-        usuarios = personaRepo.findById(id_persona);
-        System.out.println("usuarios en el arraylist: "+usuarios);
-        if(usuarios==null){
+        Optional<Persona> p;
+        p = personaRepo.findById(id_persona);
+        if(p==null){
             throw new NotFoundException("No hay usuarios");
         }else{
             System.out.println("Persona devuelta");
         }
-        return usuarios;
+        return p;
     }
 
-    public ArrayList buscarUsuario(String usuario){
-        ArrayList usuarios = new ArrayList();
+    public List<Persona> buscarUsuario(String usuario){
+        List<Persona> usuarios;
         usuarios = personaRepo.findByUsuario(usuario);
         if(usuarios==null){
             throw new NotFoundException("No hay usuarios");
@@ -73,6 +78,7 @@ public class Servicio {
     public ArrayList mostrarTodo(){
         ArrayList usuarios = new ArrayList(personaRepo.findAll());
         //ArrayList usuarios = (ArrayList) personaRepo.findAll();
+
         if(usuarios.isEmpty()){
             throw new NotFoundException("No hay usuarios");
         }
@@ -80,8 +86,9 @@ public class Servicio {
     }
 
     public void delete(int id_persona){
-        ArrayList usuarios = buscarId(id_persona);
-        if(usuarios==null){
+        Optional<Persona> p;
+        p = buscarId(id_persona);
+        if(p==null){
             throw new NotFoundException("No hay usuarios");
         }else{
             personaRepo.deleteById(id_persona);

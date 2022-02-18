@@ -1,9 +1,8 @@
-package com.example.DB1Crud.infrastructure.controller.dto.input;
+package com.example.DB1Crud.DTOs.input;
 
-import com.example.DB1Crud.Persona;
+import com.example.DB1Crud.POJOs.Persona;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Data

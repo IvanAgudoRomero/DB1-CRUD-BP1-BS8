@@ -1,6 +1,6 @@
-package com.example.DB1Crud.infrastructure.controller.dto.output;
+package com.example.DB1Crud.DTOs.output;
 
-import com.example.DB1Crud.Persona;
+import com.example.DB1Crud.POJOs.Persona;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
