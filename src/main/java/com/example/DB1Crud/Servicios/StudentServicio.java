@@ -9,19 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServicio {
     @Autowired
     StudentRepositorio studentRepositorio;
 
-    public ArrayList buscarId(int id_student){
-        ArrayList estudiantes = studentRepositorio.findById(id_student);
-        return estudiantes;
+    public Optional<Student> buscarId(int id_student){
+        Optional<Student> estudiante = studentRepositorio.findById(id_student);
+        return estudiante;
     }
 
-    public ArrayList mostrarTodo(){
-        ArrayList students = new ArrayList(studentRepositorio.findAll());
+    public List<Student> mostrarTodo(){
+        List<Student> students = studentRepositorio.findAll();
         if(students.isEmpty()){
             throw new NotFoundException("No hay usuarios");
         }
@@ -42,8 +44,8 @@ public class StudentServicio {
         studentRepositorio.deleteById(id_student);
     }
 
-    public void updateStudent(int id_student, Student s) throws Exception{
-       // addStudent(s);
+    public void updateStudent(int id_student, StudentInputDTO s) throws Exception{
+        addStudent(s);
         delete(id_student);
     }
 }

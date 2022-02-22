@@ -1,5 +1,6 @@
 package com.example.DB1Crud.Servicios;
 
+import com.example.DB1Crud.DTOs.input.PersonaInputDTO;
 import com.example.DB1Crud.Excepciones.NotFoundException;
 import com.example.DB1Crud.POJOs.Persona;
 import com.example.DB1Crud.Repositorios.PersonaRepositorio;
@@ -7,19 +8,24 @@ import com.example.DB1Crud.Excepciones.UnprocessableEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersonaServicio {
+public class PersonaServicio{
     @Autowired
     public PersonaRepositorio personaRepo;
+
+    @Autowired
+    public EntityManager entityManager;
 
     public Optional<Persona> buscarId(int id_persona){
         ArrayList usuarios = new ArrayList();
         Optional<Persona> p;
-        p = personaRepo.findById(id_persona);
+        p = personaRepo.findById(id_persona);  //vuelve a ser nulo
         if(p==null){
             throw new NotFoundException("No hay usuarios");
         }else{
@@ -39,39 +45,40 @@ public class PersonaServicio {
         return usuarios;
     }
 
-    public void addPersona(Persona p)throws Exception{
-        boolean error = false;
+    public void addPersona(PersonaInputDTO p)throws Exception{
+        checkPersona(p);
+        Persona persona = new Persona(p);
+        personaRepo.save(persona);
+        System.out.println("Persona guardada");
+    }
+
+    public void checkPersona(PersonaInputDTO p){
         if(p == null){
-            System.out.println("La persona es nula");
-        }else{
-            if(p.usuario==null){
-                throw new UnprocessableEntityException("Usuario no puede ser nulo");
-            }
-            if(p.usuario.length()>10){
-                throw new UnprocessableEntityException("Longitud de usuario no puede ser superior a 10 caracteres");
-            }
-            if(p.password==null){
-                throw new UnprocessableEntityException("Password no puede ser nulo");
-            }
-            if(p.name==null){
-                throw new UnprocessableEntityException("name no puede ser nulo");
-            }
-            if(p.company_email==null){
-                throw new UnprocessableEntityException("company_email no puede ser nulo");
-            }
-            if(p.personal_email==null){
-                throw new UnprocessableEntityException("personal_email no puede ser nulo");
-            }
-            if(p.city==null){
-                throw new UnprocessableEntityException("city no puede ser nulo");
-            }
-            if(p.created_date==null){
-                throw new UnprocessableEntityException("created_date no puede ser nulo");
-            }
-
-            personaRepo.save(p);
-            System.out.println("Persona guardada");
-
+            throw new UnprocessableEntityException("La persona no puede ser nula");
+        }
+        if (p.getUsuario() == null) {
+            throw new UnprocessableEntityException("Usuario no puede ser nulo");
+        }
+        if (p.getUsuario().length() > 10) {
+            throw new UnprocessableEntityException("Longitud de usuario no puede ser superior a 10 caracteres");
+        }
+        if (p.getPassword() == null) {
+            throw new UnprocessableEntityException("Password no puede ser nulo");
+        }
+        if (p.getName() == null) {
+            throw new UnprocessableEntityException("name no puede ser nulo");
+        }
+        if (p.getCompany_email() == null) {
+            throw new UnprocessableEntityException("company_email no puede ser nulo");
+        }
+        if (p.getPersonal_email() == null) {
+            throw new UnprocessableEntityException("personal_email no puede ser nulo");
+        }
+        if (p.getCity() == null) {
+            throw new UnprocessableEntityException("city no puede ser nulo");
+        }
+        if (p.getCreated_date() == null) {
+            throw new UnprocessableEntityException("created_date no puede ser nulo");
         }
     }
 
@@ -94,9 +101,23 @@ public class PersonaServicio {
             personaRepo.deleteById(id_persona);
         }
     }
+    @Transactional
+    public void updatePersona(int id_persona, Optional<Persona> p) throws Exception {
+        Optional<Persona> aux;
+        aux = personaRepo.findById(id_persona);
+        aux.get().setActive(p.get().isActive());
+        aux.get().setId_persona(id_persona);
+        aux.get().setCity(p.get().getCity());
+        aux.get().setCompany_email(p.get().getCompany_email());
+        aux.get().setCreated_date(p.get().getCreated_date());
+        aux.get().setPersonal_email(p.get().getPersonal_email());
+        aux.get().setImagen_url(p.get().getImagen_url());
+        aux.get().setName(p.get().getName());
+        aux.get().setPassword(p.get().getPassword());
+        aux.get().setSurname(p.get().getSurname());
+        aux.get().setTermination_date(p.get().getTermination_date());
+        aux.get().setUsuario(p.get().getUsuario());
 
-    public void updatePersona(int id_persona, Persona p) throws Exception {
-        addPersona(p);        //Primerso se añade y despues se borra porque en el metodo de añadir persona
-        delete(id_persona);   //se comprueba que exista para evitar que se borren los datos al pasar una persona nula
+        personaRepo.save(aux.get());
     }
 }

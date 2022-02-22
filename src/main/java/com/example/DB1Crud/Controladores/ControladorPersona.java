@@ -1,5 +1,6 @@
 package com.example.DB1Crud.Controladores;
 
+import com.example.DB1Crud.DTOs.input.PersonaInputDTO;
 import com.example.DB1Crud.POJOs.Persona;
 import com.example.DB1Crud.DTOs.output.PersonaOutputDTO;
 import com.example.DB1Crud.Servicios.PersonaServicio;
@@ -46,7 +47,7 @@ public class ControladorPersona {
     }
 
     @PostMapping("persona/addPersona")
-    public void addPersona(@RequestBody Persona p) throws Exception {
+    public void addPersona(@RequestBody PersonaInputDTO p) throws Exception {
         System.out.println(p.toString());
         personaServicio.addPersona(p);
     }
@@ -57,7 +58,7 @@ public class ControladorPersona {
     }
 
     @PutMapping("persona/updatePersona/{id_persona}")
-    public void updatePersona(@PathVariable int id_persona, @RequestBody Persona p) throws Exception {
+    public void updatePersona(@PathVariable int id_persona, @RequestBody Optional<Persona> p) throws Exception {
         personaServicio.updatePersona(id_persona, p);
     }
 }
