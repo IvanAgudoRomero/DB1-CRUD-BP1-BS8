@@ -19,9 +19,6 @@ public class PersonaServicio{
     @Autowired
     public PersonaRepositorio personaRepo;
 
-    @Autowired
-    public EntityManager entityManager;
-
     public Optional<Persona> buscarId(int id_persona){
         ArrayList usuarios = new ArrayList();
         Optional<Persona> p;
@@ -101,8 +98,8 @@ public class PersonaServicio{
             personaRepo.deleteById(id_persona);
         }
     }
-    @Transactional
-    public void updatePersona(int id_persona, Optional<Persona> p) throws Exception {
+
+    public void updatePersona(int id_persona, Optional<Persona> p) throws Exception { //habría que poner un input DTO
         Optional<Persona> aux;
         aux = personaRepo.findById(id_persona);
         aux.get().setActive(p.get().isActive());

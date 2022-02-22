@@ -14,18 +14,6 @@ import java.util.List;
 
 @Data
 public class StudentInputDTO{
-    /*
-    @Autowired
-    PersonaRepositorio personaRepositorio; //igual solo se puede llamar desde un sitio o solo se le puede hacer un autowired?
-
-    PersonaServicio ps;
-
-    @Autowired
-    ProfesorRepositorio profesorRepositorio;
-*/
-    PersonaServicio personaServicio = new PersonaServicio();
-    ProfesorServicio profesorServicio = new ProfesorServicio();
-
     Integer id_student;
     Integer id_persona;
     Integer num_hours_week;
@@ -33,14 +21,18 @@ public class StudentInputDTO{
     Integer id_profesor;
     String branch;
     List estudios;
+    PersonaRepositorio personaRepositorio;
+    ProfesorRepositorio profesorRepositorio;
 
     public Student estudiante() throws NotFoundException {
         Student estudiante = new Student();
         estudiante.setId_student(this.getId_student());
-        estudiante.setPersona(personaServicio.buscarId(this.getId_persona()).orElseThrow(() -> new NotFoundException()));
+        estudiante.setPersona(personaRepositorio.findById(getId_persona()).get());
+        //estudiante.setPersona(personaServicio.buscarId(this.getId_persona()).orElseThrow(() -> new NotFoundException()));
         estudiante.setNum_hours_week(this.getNum_hours_week());
         estudiante.setComents(this.getComents());
-        estudiante.setProfesor(profesorServicio.buscarId(this.getId_profesor()).orElseThrow(() -> new NotFoundException()));
+        estudiante.setProfesor(profesorRepositorio.findById(getId_profesor()).get());
+        //estudiante.setProfesor(profesorServicio.buscarId(this.getId_profesor()).orElseThrow(() -> new NotFoundException()));
         estudiante.setBranch(this.getBranch());
         estudiante.setEstudios(this.getEstudios());
         return estudiante;

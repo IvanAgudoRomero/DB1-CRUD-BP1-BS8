@@ -1,6 +1,7 @@
 package com.example.DB1Crud.POJOs;
 
 import com.example.DB1Crud.DTOs.input.StudentInputDTO;
+import com.example.DB1Crud.Repositorios.PersonaRepositorio;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +31,7 @@ public class Student {
     String branch;
     @OneToMany
     List<Alumnos_Estudios> estudios;
+
 
     public Student(StudentInputDTO studentInputDTO) {
         setId_student(studentInputDTO.getId_student());
